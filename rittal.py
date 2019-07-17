@@ -3,7 +3,7 @@
 import snmp
 import sys
 
-community = 'nicbr2017'
+community = 'pub'
 corredor_4_ip = "10.2.9.26"
 corredor_5_ip = "10.2.9.27"
 corredor_6_ip = "10.2.9.28"
