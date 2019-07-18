@@ -1,7 +1,7 @@
 #!/usr/bin/python3.5
 
 import dicionariosRacks
-import snmp
+import coleta_snmp
 import sys
 
 community = 'pub'
@@ -22,7 +22,7 @@ ip = dicionariosRacks.ip
 
 # Essa função faz a consulta snmp no script coleta_snmp
 def fun_snmp(mib, community, ip):
-    return snmp.snmp_get(mib, community, ip)
+    return coleta_snmp.snmp_get(mib, community, ip)
 
 # Essa função pega a média de diversos sensores
 # (média fria, média quente e média umidade)
