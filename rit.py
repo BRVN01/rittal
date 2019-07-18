@@ -1,40 +1,31 @@
 #!/usr/bin/python3.5
 
-import coleta_snmp
+import dicionariosRacks
+import snmp
 import sys
 
 community = 'pub'
-corredor_4_ip = "10.2.9.26"
-corredor_5_ip = "10.2.9.27"
-corredor_6_ip = "10.2.9.28"
 
-dici_corredor_4_frio = {
-    'F38': 'cmcIIIVarValueStr.2.2',
-    'P38': 'cmcIIIVarValueStr.4.2',
-    'K38': 'cmcIIIVarValueStr.11.2',
-    'F35': 'cmcIIIVarValueStr.7.2',
-    'P35': 'cmcIIIVarValueStr.10.2',
-    'K35': 'cmcIIIVarValueStr.8.2'
-    }
+# Importando dicionários, neles temos as MIBs relacionado aos racks.
+rack4_frio = dicionariosRacks.dici_corredor_4_frio
+rack4_quente = dicionariosRacks.dici_corredor_4_quente
+rack4_umidade = dicionariosRacks.dici_corredor_4_umidade
 
-dici_corredor_4_quente = {
-    'K38': 'cmcIIIVarValueStr.3.2',
-    'K35': 'cmcIIIVarValueStr.9.2'
-    }
+rack5_frio = dicionariosRacks.dici_corredor_5_frio
+rack5_quente = dicionariosRacks.dici_corredor_5_quente
+rack5_umidade = dicionariosRacks.dici_corredor_5_umidade
 
-dici_corredor_4_umidade = {
-    'F38': 'cmcIIIVarValueStr.2.12',
-    'P38': 'cmcIIIVarValueStr.4.11',
-    'F35': 'cmcIIIVarValueStr.7.12',
-    'P35': 'cmcIIIVarValueStr.10.12',
-    'K35': 'cmcIIIVarValueStr.8.11'
-    }
+rack6_frio = dicionariosRacks.dici_corredor_6_frio
+rack6_quente = dicionariosRacks.dici_corredor_6_quente
+rack6_umidade = dicionariosRacks.dici_corredor_6_umidade
+ip = dicionariosRacks.ip
 
-
+# Essa função faz a consulta snmp no script coleta_snmp
 def fun_snmp(mib, community, ip):
     return snmp.snmp_get(mib, community, ip)
 
-
+# Essa função pega a média de diversos sensores
+# (média fria, média quente e média umidade)
 def media_corredore(dicionario, ip):
     lista = []
     for i in dicionario.keys():
@@ -51,14 +42,26 @@ def media_corredore(dicionario, ip):
     return soma / len(dicionario.keys())
 
 # Pega média do corredor 4
-temp_cor4_frio = media_corredore(dici_corredor_4_frio, corredor_4_ip)
-temp_cor4_quente = media_corredore(dici_corredor_4_quente, corredor_4_ip)
-temp_cor4_umidade = media_corredore(dici_corredor_4_umidade, corredor_4_ip)
+cor4_frio = media_corredore(rack4_frio, ip['cor4'])
+cor4_quente = media_corredore(rack4_quente, ip['cor4'])
+cor4_umidade = media_corredore(rack4_umidade, ip['cor4'])
 
 # Pega média do corredor 5
+cor5_frio = media_corredore(rack5_frio, ip['cor5'])
+cor5_quente = media_corredore(rack5_quente, ip['cor5'])
+cor5_umidade = media_corredore(rack5_umidade, ip['cor5'])
 
 # Pega média do corredor 6
+cor6_frio = media_corredore(rack6_frio, ip['cor6'])
+cor6_quente = media_corredore(rack6_quente, ip['cor6'])
+cor6_umidade = media_corredore(rack6_umidade, ip['cor6'])
 
+racks = [
+    [cor4_frio, cor4_quente, cor4_umidade],
+    [cor5_frio, cor5_quente, cor5_umidade],
+    [cor6_frio, cor6_quente, cor6_umidade]
+    ]
 
-print('Corredor 4 - Quente: {0:.1f}°C - Frio: {1:.1f}°C - Umidade: {2:.1f} %'.format(temp_cor4_quente, temp_cor4_frio, temp_cor4_umidade))
-
+for num in range(3):
+    print('Corredor {0} - Quente: {1:.1f}°C - Frio: {2:.1f} - Umidade: {3:.1f}%'.format(
+        str(num + 4), racks[num][1], racks[num][0], racks[num][2]))
