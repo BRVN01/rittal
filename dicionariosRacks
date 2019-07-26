@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+
+dici_NOME1 = {
+    'NOME1.1': 'MIB',
+    'NOME1.2': 'MIB',
+    'NOME1.3': 'MIB',
+    'NOME1.4': 'MIB',
+    'NOME1.5': 'MIB',
+    'NOME1.6': 'MIB'
+    }
+
+dici_NOME2 = {
+    'NOME2.1': 'MIB',
+    'NOME2.2': 'MIB'
+    }
+
+dici_NOME3 = {
+    'NOME3.1': 'MIB',
+    'NOME3.2': 'MIB',
+    'NOME3.3': 'MIB',
+    'NOME3.4': 'MIB',
+    'NOME3.5': 'MIB'
+    }
+
+dici_NOME4 = {
+    'NOME4.1': 'MIB',
+    'NOME4.2': 'MIB',
+    'NOME4.3': 'MIB',
+    'NOME4.4': 'MIB',
+    'NOME4.5': 'MIB',
+    'NOME4.6': 'MIB'
+    }
+
+dici_NOME7 = {
+    'NOME7.1': 'MIB',
+    'NOME7.2': 'MIB'
+    }
+
+dici_NOME8 = {
+    'NOME8.1': 'MIB',
+    'NOME8.2': 'MIB',
+    'NOME8.3': 'MIB',
+    'NOME8.4': 'MIB',
+    'NOME8.5': 'MIB'
+    }
+
+dici_NOME9 = {
+    'NOME9.1': 'MIB',
+    'NOME9.2': 'MIB',
+    'NOME9.3': 'MIB',
+    'NOME9.4': 'MIB',
+    'NOME9.5': 'MIB',
+    'NOME9.6': 'MIB'
+    }
+
+ip = {
+    'IP1': 'X.X.X.X',
+    'IP2': 'X.X.X.X',
+    'IP3': 'X.X.X.X'
+    }
